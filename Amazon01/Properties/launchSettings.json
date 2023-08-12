@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Amazon01": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    },
+    "WSL 2": {
+      "commandName": "WSL2",
+      "distributionName": ""
+    }
+  }
+}

@@ -20,20 +20,25 @@ namespace Amazon01.TestCases
         }
 
         [Test]
-        public void Test()
+        public void AssertLaptopPrice()
         {
-
             // Navigate to Amazon
             driver.Navigate().GoToUrl("https://www.amazon.com/");
 
             // Check if Captcha screen displayed, if yes wait 10 sec to manually enter captcha
-            Boolean IsCaptchaDisplayed = driver.FindElement(By.Id("captchacharacters")).Displayed;
-
-            if (IsCaptchaDisplayed)
+            try
             {
-                Console.WriteLine("Captcha screen displayed.");
-                System.Threading.Thread.Sleep(10000);
-            }           
+                Boolean IsCaptchaDisplayed = driver.FindElement(By.Id("captchacharacters")).Displayed;
+                if (IsCaptchaDisplayed)
+                {
+                    Console.WriteLine("Captcha screen displayed." + IsCaptchaDisplayed);
+                    System.Threading.Thread.Sleep(10000);
+                }
+            }
+            catch (Exception e)
+            {
+                //No captcha screen. Test can continue as expected.
+            }                   
 
             // Find the search text box and type "laptop"
             IWebElement searchBox = driver.FindElement(By.Id("twotabsearchtextbox"));
@@ -45,10 +50,10 @@ namespace Amazon01.TestCases
 
             // Wait for search results to load
             new WebDriverWait(driver, TimeSpan.FromSeconds(10)).Until(driver => driver.Title.Equals("Amazon.com : laptop"));
-           
+
             // Find the first search result and click it
-            IWebElement firstResult = driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div[1]/div[1]/div/span[1]/div[1]/div[2]/div/div/div/div/div/div/div/div[1]/div/div[2]/div/span/a/div/img"));
-            firstResult.Click();                       
+            IWebElement firstResult = driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div[1]/div[1]/div/span[1]/div[1]/div[2]/div/div/div/div/div/div/div/div[1]/div/div[2]/div/span/a/div/img"));            
+            firstResult.Click();                              
 
             // Find the laptop price element
             IWebElement priceElement = driver.FindElement(By.Id ("corePrice_feature_div"));
