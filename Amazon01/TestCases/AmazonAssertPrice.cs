@@ -21,11 +21,19 @@ namespace Amazon01.TestCases
 
         [Test]
         public void Test()
-        {          
+        {
 
             // Navigate to Amazon
             driver.Navigate().GoToUrl("https://www.amazon.com/");
-                        
+
+            // Check if Captcha screen displayed, if yes wait 10 sec to manually enter captcha
+            Boolean IsCaptchaDisplayed = driver.FindElement(By.Id("captchacharacters")).Displayed;
+
+            if (IsCaptchaDisplayed)
+            {
+                Console.WriteLine("Captcha screen displayed.");
+                System.Threading.Thread.Sleep(10000);
+            }           
 
             // Find the search text box and type "laptop"
             IWebElement searchBox = driver.FindElement(By.Id("twotabsearchtextbox"));
